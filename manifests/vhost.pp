@@ -1,6 +1,6 @@
-# Definition: nginx::vhost
+# Definition: openresty::vhost
 #
-# This class installs nginx Virtual Hosts
+# This class installs openresty Virtual Hosts
 #
 # Parameters:
 # - The $port to configure the host on
@@ -10,22 +10,22 @@
 # - The $serveraliases of the site
 #
 # Actions:
-# - Install Nginx Virtual Hosts
+# - Install openresty Virtual Hosts
 #
 # Requires:
-# - The nginx class
+# - The openresty class
 #
 # Sample Usage:
-#  nginx::vhost { 'site.name.fqdn':
+#  openresty::vhost { 'site.name.fqdn':
 #  priority => '20',
 #  port => '80',
 #  docroot => '/path/to/docroot',
 #  }
 #
-define nginx::vhost (
+define openresty::vhost (
   $docroot,
   $port          = '80',
-  $template      = 'nginx/vhost/vhost.conf.erb',
+  $template      = 'openresty/vhost/vhost.conf.erb',
   $priority      = '50',
   $serveraliases = '',
   $create_docroot = true,
@@ -33,28 +33,28 @@ define nginx::vhost (
   $owner         = '',
   $groupowner    = '' ) {
 
-  include nginx
-  include nginx::params
+  include openresty
+  include openresty::params
 
   $real_owner = $owner ? {
-    ''      => "${nginx::config_file_owner}",
+    ''      => "${openresty::config_file_owner}",
     default => $owner,
   }
 
   $real_groupowner = $groupowner ? {
-    ''      => "${nginx::config_file_group}",
+    ''      => "${openresty::config_file_group}",
     default => $groupowner,
   }
 
   $bool_create_docroot = any2bool($create_docroot)
 
-  file { "${nginx::vdir}/${priority}-${name}.conf":
+  file { "${openresty::vdir}/${priority}-${name}.conf":
     content => template($template),
-    mode    => $nginx::config_file_mode,
-    owner   => $nginx::config_file_owner,
-    group   => $nginx::config_file_group,
-    require => Package['nginx'],
-    notify  => Service['nginx'],
+    mode    => $openresty::config_file_mode,
+    owner   => $openresty::config_file_owner,
+    group   => $openresty::config_file_group,
+    require => Package['openresty'],
+    notify  => Service['openresty'],
   }
 
   # Some OS specific settings:
@@ -62,16 +62,16 @@ define nginx::vhost (
   case $::operatingsystem {
     ubuntu,debian,mint: {
       file { "ApacheVHostEnabled_$name":
-        path    => "/etc/nginx/sites-enabled/${priority}-${name}.conf",
+        path    => "/etc/openresty/sites-enabled/${priority}-${name}.conf",
         ensure  => $enable ? {
-          true  => "${nginx::vdir}/${priority}-${name}.conf",
+          true  => "${openresty::vdir}/${priority}-${name}.conf",
           false => absent,
         },
-        require => Package['nginx'],
+        require => Package['openresty'],
       }
     }
     redhat,centos,scientific,fedora: {
-      # include nginx::redhat
+      # include openresty::redhat
     }
     default: { }
   }

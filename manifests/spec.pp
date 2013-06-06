@@ -1,4 +1,4 @@
-# Class: nginx::spec
+# Class: openresty::spec
 #
 # This class is used only for rpsec-puppet tests
 # Can be taken as an example on how to do custom classes but should not
@@ -9,14 +9,14 @@
 # This class is not intended to be used directly.
 # Use it as reference
 #
-class nginx::spec inherits nginx {
+class openresty::spec inherits openresty {
 
   # This just a test to override the arguments of an existing resource
   # Note that you can achieve this same result with just:
-  # class { "nginx": template => "nginx/spec.erb" }
+  # class { "openresty": template => "openresty/spec.erb" }
 
-  File['nginx.conf'] {
-    content => template('nginx/spec.erb'),
+  File['openresty.conf'] {
+    content => template('openresty/spec.erb'),
   }
 
 }

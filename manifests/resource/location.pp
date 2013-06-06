@@ -1,4 +1,4 @@
-# define: nginx::resource::location
+# define: openresty::resource::location
 #
 # This definition creates a new location entry within a virtual host
 #
@@ -7,9 +7,9 @@
 #   [*vhost*]              - Defines the default vHost for this location entry to include with
 #   [*location*]           - Specifies the URI associated with this location entry
 #   [*www_root*]           - Specifies the location on disk for files to be read from. Cannot be set in conjunction with $proxy
-#   [*index_files*]        - Default index files for NGINX to read when traversing a directory
+#   [*index_files*]        - Default index files for openresty to read when traversing a directory
 #   [*proxy*]              - Proxy server(s) for a location to connect to. Accepts a single value, can be used in conjunction
-#                            with nginx::resource::upstream
+#                            with openresty::resource::upstream
 #   [*proxy_read_timeout*] - Override the default the proxy read timeout value of 90 seconds
 #   [*ssl*]                - Indicates whether to setup SSL bindings for this location.
 #   [*option*]             - Reserved for future use
@@ -19,13 +19,13 @@
 # Requires:
 #
 # Sample Usage:
-#  nginx::resource::location { 'test2.local-bob':
+#  openresty::resource::location { 'test2.local-bob':
 #    ensure   => present,
 #    www_root => '/var/www/bob',
 #    location => '/bob',
 #    vhost    => 'test2.local',
 #  }
-define nginx::resource::location(
+define openresty::resource::location(
   $ensure             = present,
   $vhost              = undef,
   $www_root           = undef,
@@ -41,7 +41,7 @@ define nginx::resource::location(
     owner  => 'root',
     group  => 'root',
     mode   => '0644',
-    notify => $nginx::manage_service_autorestart,
+    notify => $openresty::manage_service_autorestart,
   }
 
   ## Shared Variables
@@ -52,9 +52,9 @@ define nginx::resource::location(
 
   # Use proxy template if $proxy is defined, otherwise use directory template.
   if ($proxy != undef) {
-    $content_real = template('nginx/vhost/vhost_location_proxy.erb')
+    $content_real = template('openresty/vhost/vhost_location_proxy.erb')
   } else {
-    $content_real = template('nginx/vhost/vhost_location_directory.erb')
+    $content_real = template('openresty/vhost/vhost_location_directory.erb')
   }
 
   ## Check for various error condtiions
@@ -73,7 +73,7 @@ define nginx::resource::location(
     ensure  => $ensure,
     order   => '50',
     content => $content_real,
-    target  => "${nginx::config_dir}/sites-available/${vhost}.conf",
+    target  => "${openresty::config_dir}/sites-available/${vhost}.conf",
   }
 
   ## Only create SSL Specific locations if $ssl is true.
@@ -81,6 +81,6 @@ define nginx::resource::location(
     ensure  => $ssl,
     order   => '80',
     content => $content_real,
-    target  => "${nginx::config_dir}/sites-available/${vhost}.conf",
+    target  => "${openresty::config_dir}/sites-available/${vhost}.conf",
   }
 }

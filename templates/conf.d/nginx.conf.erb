@@ -1,29 +1,29 @@
 # File Managed by Puppet 
-user <%= scope.lookupvar('nginx::process_user') %>;
+user <%= scope.lookupvar('openresty::process_user') %>;
 worker_processes <%= @processorcount %>;
 
-error_log  <%= scope.lookupvar('nginx::log_dir')%>/error.log;
-pid        <%= scope.lookupvar('nginx::pid_file')%>;
+error_log  <%= scope.lookupvar('openresty::log_dir')%>/error.log;
+pid        <%= scope.lookupvar('openresty::pid_file')%>;
 
 events {
-  worker_connections <%= scope.lookupvar('nginx::worker_connections')%>;
-  # <% if scope.lookupvar('nginx::nx_multi_accept') == 'on' %>multi_accept on;<% end %>
+  worker_connections <%= scope.lookupvar('openresty::worker_connections')%>;
+  # <% if scope.lookupvar('openresty::nx_multi_accept') == 'on' %>multi_accept on;<% end %>
 }
 
 http {
-  include       <%= scope.lookupvar('nginx::config_dir')%>/mime.types;
+  include       <%= scope.lookupvar('openresty::config_dir')%>/mime.types;
   default_type  application/octet-stream;
 
-  access_log  <%= scope.lookupvar('nginx::log_dir')%>/access.log;
+  access_log  <%= scope.lookupvar('openresty::log_dir')%>/access.log;
 
   sendfile    on;
   #tcp_nopush  on;
   tcp_nodelay        on;
-  client_max_body_size <%= scope.lookupvar('nginx::client_max_body_size')%>;
-  keepalive_timeout  <%= scope.lookupvar('nginx::keepalive_timeout')%>;
+  client_max_body_size <%= scope.lookupvar('openresty::client_max_body_size')%>;
+  keepalive_timeout  <%= scope.lookupvar('openresty::keepalive_timeout')%>;
 
-  gzip         <%= scope.lookupvar('nginx::real_gzip')%>;
+  gzip         <%= scope.lookupvar('openresty::real_gzip')%>;
   gzip_disable "MSIE [1-6]\.(?!.*SV1)";
 
-  include <%= scope.lookupvar('nginx::vdir')%>/*.conf;
+  include <%= scope.lookupvar('openresty::vdir')%>/*.conf;
 }

@@ -1,6 +1,6 @@
-# = Class: nginx
+# = Class: openresty
 #
-# This is the main nginx class
+# This is the main openresty class
 #
 #
 # == Parameters
@@ -10,129 +10,129 @@
 #
 # [*my_class*]
 #   Name of a custom class to autoload to manage module's customizations
-#   If defined, nginx class will automatically "include $my_class"
-#   Can be defined also by the (top scope) variable $nginx_myclass
+#   If defined, openresty class will automatically "include $my_class"
+#   Can be defined also by the (top scope) variable $openresty_myclass
 #
 # [*source*]
 #   Sets the content of source parameter for main configuration file
-#   If defined, nginx main config file will have the param: source => $source
-#   Can be defined also by the (top scope) variable $nginx_source
+#   If defined, openresty main config file will have the param: source => $source
+#   Can be defined also by the (top scope) variable $openresty_source
 #
 # [*source_dir*]
-#   If defined, the whole nginx configuration directory content is retrieved
+#   If defined, the whole openresty configuration directory content is retrieved
 #   recursively from the specified source
 #   (source => $source_dir , recurse => true)
-#   Can be defined also by the (top scope) variable $nginx_source_dir
+#   Can be defined also by the (top scope) variable $openresty_source_dir
 #
 # [*source_dir_purge*]
 #   If set to true (default false) the existing configuration directory is
 #   mirrored with the content retrieved from source_dir
 #   (source => $source_dir , recurse => true , purge => true, force => true)
-#   Can be defined also by the (top scope) variable $nginx_source_dir_purge
+#   Can be defined also by the (top scope) variable $openresty_source_dir_purge
 #
 # [*template*]
 #   Sets the path to the template to use as content for main configuration file
-#   If defined, nginx main config file has: content => content("$template")
+#   If defined, openresty main config file has: content => content("$template")
 #   Note source and template parameters are mutually exclusive: don't use both
-#   Can be defined also by the (top scope) variable $nginx_template
+#   Can be defined also by the (top scope) variable $openresty_template
 #
 # [*options*]
 #   An hash of custom options to be used in templates for arbitrary settings.
-#   Can be defined also by the (top scope) variable $nginx_options
+#   Can be defined also by the (top scope) variable $openresty_options
 #
 # [*service_autorestart*]
-#   Automatically restarts the nginx service when there is a change in
+#   Automatically restarts the openresty service when there is a change in
 #   configuration files. Default: true, Set to false if you don't want to
 #   automatically restart the service.
 #
 # [*absent*]
 #   Set to 'true' to remove package(s) installed by module
-#   Can be defined also by the (top scope) variable $nginx_absent
+#   Can be defined also by the (top scope) variable $openresty_absent
 #
 # [*disable*]
 #   Set to 'true' to disable service(s) managed by module
-#   Can be defined also by the (top scope) variable $nginx_disable
+#   Can be defined also by the (top scope) variable $openresty_disable
 #
 # [*disableboot*]
 #   Set to 'true' to disable service(s) at boot, without checks if it's running
 #   Use this when the service is managed by a tool like a cluster software
-#   Can be defined also by the (top scope) variable $nginx_disableboot
+#   Can be defined also by the (top scope) variable $openresty_disableboot
 #
 # [*monitor*]
 #   Set to 'true' to enable monitoring of the services provided by the module
-#   Can be defined also by the (top scope) variables $nginx_monitor
+#   Can be defined also by the (top scope) variables $openresty_monitor
 #   and $monitor
 #
 # [*monitor_tool*]
 #   Define which monitor tools (ad defined in Example42 monitor module)
-#   you want to use for nginx checks
-#   Can be defined also by the (top scope) variables $nginx_monitor_tool
+#   you want to use for openresty checks
+#   Can be defined also by the (top scope) variables $openresty_monitor_tool
 #   and $monitor_tool
 #
 # [*monitor_target*]
 #   The Ip address or hostname to use as a target for monitoring tools.
 #   Default is the fact $ipaddress
-#   Can be defined also by the (top scope) variables $nginx_monitor_target
+#   Can be defined also by the (top scope) variables $openresty_monitor_target
 #   and $monitor_target
 #
 # [*puppi*]
 #   Set to 'true' to enable creation of module data files that are used by puppi
-#   Can be defined also by the (top scope) variables $nginx_puppi and $puppi
+#   Can be defined also by the (top scope) variables $openresty_puppi and $puppi
 #
 # [*puppi_helper*]
 #   Specify the helper to use for puppi commands. The default for this module
 #   is specified in params.pp and is generally a good choice.
 #   You can customize the output of puppi commands for this module using another
 #   puppi helper. Use the define puppi::helper to create a new custom helper
-#   Can be defined also by the (top scope) variables $nginx_puppi_helper
+#   Can be defined also by the (top scope) variables $openresty_puppi_helper
 #   and $puppi_helper
 #
 # [*firewall*]
 #   Set to 'true' to enable firewalling of the services provided by the module
-#   Can be defined also by the (top scope) variables $nginx_firewall
+#   Can be defined also by the (top scope) variables $openresty_firewall
 #   and $firewall
 #
 # [*firewall_tool*]
 #   Define which firewall tool(s) (ad defined in Example42 firewall module)
-#   you want to use to open firewall for nginx port(s)
-#   Can be defined also by the (top scope) variables $nginx_firewall_tool
+#   you want to use to open firewall for openresty port(s)
+#   Can be defined also by the (top scope) variables $openresty_firewall_tool
 #   and $firewall_tool
 #
 # [*firewall_src*]
-#   Define which source ip/net allow for firewalling nginx. Default: 0.0.0.0/0
-#   Can be defined also by the (top scope) variables $nginx_firewall_src
+#   Define which source ip/net allow for firewalling openresty. Default: 0.0.0.0/0
+#   Can be defined also by the (top scope) variables $openresty_firewall_src
 #   and $firewall_src
 #
 # [*firewall_dst*]
 #   Define which destination ip to use for firewalling. Default: $ipaddress
-#   Can be defined also by the (top scope) variables $nginx_firewall_dst
+#   Can be defined also by the (top scope) variables $openresty_firewall_dst
 #   and $firewall_dst
 #
 # [*debug*]
 #   Set to 'true' to enable modules debugging
-#   Can be defined also by the (top scope) variables $nginx_debug and $debug
+#   Can be defined also by the (top scope) variables $openresty_debug and $debug
 #
 # [*audit_only*]
 #   Set to 'true' if you don't intend to override existing configuration files
 #   and want to audit the difference between existing files and the ones
 #   managed by Puppet.
-#   Can be defined also by the (top scope) variables $nginx_audit_only
+#   Can be defined also by the (top scope) variables $openresty_audit_only
 #   and $audit_only
 #
-# Default class params - As defined in nginx::params.
+# Default class params - As defined in openresty::params.
 # Note that these variables are mostly defined and used in the module itself,
 # overriding the default values might not affected all the involved components.
 # Set and override them only if you know what you're doing.
 # Note also that you can't override/set them via top scope variables.
 #
 # [*package*]
-#   The name of nginx package
+#   The name of openresty package
 #
 # [*service*]
-#   The name of nginx service
+#   The name of openresty service
 #
 # [*gzip*]
-#   Specified the gzip function of nginx 'on' or 'off'. Deault is 'on',
+#   Specified the gzip function of openresty 'on' or 'off'. Deault is 'on',
 #
 # [*worker_connections*]
 #   Specified worker connections number. Default is 1024.
@@ -142,20 +142,20 @@
 #
 # [*client_max_body_size*]
 #   Specified the max body size of client. Default is 10mb. 
-#   Increase this param if your nginx is an upload server.
+#   Increase this param if your openresty is an upload server.
 #
 # [*service_status*]
-#   If the nginx service init script supports status argument
+#   If the openresty service init script supports status argument
 #
 # [*process*]
-#   The name of nginx process
+#   The name of openresty process
 #
 # [*process_args*]
-#   The name of nginx arguments. Used by puppi and monitor.
-#   Used only in case the nginx process name is generic (java, ruby...)
+#   The name of openresty arguments. Used by puppi and monitor.
+#   Used only in case the openresty process name is generic (java, ruby...)
 #
 # [*process_user*]
-#   The name of the user nginx runs with. Used by puppi and monitor.
+#   The name of the user openresty runs with. Used by puppi and monitor.
 #
 # [*config_dir*]
 #   Main configuration directory. Used by puppi
@@ -191,19 +191,19 @@
 #   The listening port, if any, of the service.
 #   This is used by monitor, firewall and puppi (optional) components
 #   Note: This doesn't necessarily affect the service configuration file
-#   Can be defined also by the (top scope) variable $nginx_port
+#   Can be defined also by the (top scope) variable $openresty_port
 #
 # [*protocol*]
 #   The protocol used by the the service.
 #   This is used by monitor, firewall and puppi (optional) components
-#   Can be defined also by the (top scope) variable $nginx_protocol
+#   Can be defined also by the (top scope) variable $openresty_protocol
 #
 #
 # == Examples
 #
 # You can use this class in 2 ways:
-# - Set variables (at top scope level on in a ENC) and "include nginx"
-# - Call nginx as a parametrized class
+# - Set variables (at top scope level on in a ENC) and "include openresty"
+# - Call openresty as a parametrized class
 #
 # See README for details.
 #
@@ -211,7 +211,7 @@
 # == Author
 #   Alessandro Franceschi <al@lab42.it/>
 #
-class nginx (
+class openresty (
   $gzip                = params_lookup( 'gzip' ),
   $worker_connections  = params_lookup( 'worker_connections' ),
   $keepalive_timeout   = params_lookup( 'keepalive_timeout' ),
@@ -255,7 +255,7 @@ class nginx (
   $log_file            = params_lookup( 'log_file' ),
   $port                = params_lookup( 'port' ),
   $protocol            = params_lookup( 'protocol' )
-  ) inherits nginx::params {
+  ) inherits openresty::params {
 
   $bool_source_dir_purge=any2bool($source_dir_purge)
   $bool_service_autorestart=any2bool($service_autorestart)
@@ -277,183 +277,183 @@ class nginx (
 
   ### Calculation of variables that dependes on arguments
   $vdir = $::operatingsystem ? {
-    /(?i:Ubuntu|Debian|Mint)/ => "${nginx::config_dir}/sites-available",
-    default                   => "${nginx::config_dir}/conf.d",
+    /(?i:Ubuntu|Debian|Mint)/ => "${openresty::config_dir}/sites-available",
+    default                   => "${openresty::config_dir}/conf.d",
   }
 
   ### Definition of some variables used in the module
-  $manage_package = $nginx::bool_absent ? {
+  $manage_package = $openresty::bool_absent ? {
     true  => 'absent',
     false => 'present',
   }
 
-  $manage_service_enable = $nginx::bool_disableboot ? {
+  $manage_service_enable = $openresty::bool_disableboot ? {
     true    => false,
-    default => $nginx::bool_disable ? {
+    default => $openresty::bool_disable ? {
       true    => false,
-      default => $nginx::bool_absent ? {
+      default => $openresty::bool_absent ? {
         true  => false,
         false => true,
       },
     },
   }
 
-  $manage_service_ensure = $nginx::bool_disable ? {
+  $manage_service_ensure = $openresty::bool_disable ? {
     true    => 'stopped',
-    default =>  $nginx::bool_absent ? {
+    default =>  $openresty::bool_absent ? {
       true    => 'stopped',
       default => 'running',
     },
   }
 
-  $manage_service_autorestart = $nginx::bool_service_autorestart ? {
-    true    => 'Service[nginx]',
+  $manage_service_autorestart = $openresty::bool_service_autorestart ? {
+    true    => 'Service[openresty]',
     false   => undef,
   }
 
-  $manage_file = $nginx::bool_absent ? {
+  $manage_file = $openresty::bool_absent ? {
     true    => 'absent',
     default => 'present',
   }
 
-  if $nginx::bool_absent == true
-  or $nginx::bool_disable == true
-  or $nginx::bool_disableboot == true {
+  if $openresty::bool_absent == true
+  or $openresty::bool_disable == true
+  or $openresty::bool_disableboot == true {
     $manage_monitor = false
   } else {
     $manage_monitor = true
   }
 
-  if $nginx::bool_absent == true or $nginx::bool_disable == true {
+  if $openresty::bool_absent == true or $openresty::bool_disable == true {
     $manage_firewall = false
   } else {
     $manage_firewall = true
   }
 
-  $manage_audit = $nginx::bool_audit_only ? {
+  $manage_audit = $openresty::bool_audit_only ? {
     true  => 'all',
     false => undef,
   }
 
-  $manage_file_replace = $nginx::bool_audit_only ? {
+  $manage_file_replace = $openresty::bool_audit_only ? {
     true  => false,
     false => true,
   }
 
-  $manage_file_source = $nginx::source ? {
+  $manage_file_source = $openresty::source ? {
     ''        => undef,
-    default   => $nginx::source,
+    default   => $openresty::source,
   }
 
-  $manage_file_content = $nginx::template ? {
+  $manage_file_content = $openresty::template ? {
     ''        => undef,
-    default   => template($nginx::template),
+    default   => template($openresty::template),
   }
 
   ### Managed resources
-  package { 'nginx':
-    ensure => $nginx::manage_package,
-    name   => $nginx::package,
+  package { 'openresty':
+    ensure => $openresty::manage_package,
+    name   => $openresty::package,
   }
 
-  service { 'nginx':
-    ensure     => $nginx::manage_service_ensure,
-    name       => $nginx::service,
-    enable     => $nginx::manage_service_enable,
-    hasstatus  => $nginx::service_status,
-    pattern    => $nginx::process,
-    require    => Package['nginx'],
+  service { 'openresty':
+    ensure     => $openresty::manage_service_ensure,
+    name       => $openresty::service,
+    enable     => $openresty::manage_service_enable,
+    hasstatus  => $openresty::service_status,
+    pattern    => $openresty::process,
+    require    => Package['openresty'],
   }
 
-  file { 'nginx.conf':
-    ensure  => $nginx::manage_file,
-    path    => $nginx::config_file,
-    mode    => $nginx::config_file_mode,
-    owner   => $nginx::config_file_owner,
-    group   => $nginx::config_file_group,
-    require => Package['nginx'],
-    notify  => $nginx::manage_service_autorestart,
-    source  => $nginx::manage_file_source,
-    content => $nginx::manage_file_content,
-    replace => $nginx::manage_file_replace,
-    audit   => $nginx::manage_audit,
+  file { 'openresty.conf':
+    ensure  => $openresty::manage_file,
+    path    => $openresty::config_file,
+    mode    => $openresty::config_file_mode,
+    owner   => $openresty::config_file_owner,
+    group   => $openresty::config_file_group,
+    require => Package['openresty'],
+    notify  => $openresty::manage_service_autorestart,
+    source  => $openresty::manage_file_source,
+    content => $openresty::manage_file_content,
+    replace => $openresty::manage_file_replace,
+    audit   => $openresty::manage_audit,
   }
 
-  # The whole nginx configuration directory can be recursively overriden
-  if $nginx::source_dir {
-    file { 'nginx.dir':
+  # The whole openresty configuration directory can be recursively overriden
+  if $openresty::source_dir {
+    file { 'openresty.dir':
       ensure  => directory,
-      path    => $nginx::config_dir,
-      require => Package['nginx'],
-      notify  => $nginx::manage_service_autorestart,
-      source  => $nginx::source_dir,
+      path    => $openresty::config_dir,
+      require => Package['openresty'],
+      notify  => $openresty::manage_service_autorestart,
+      source  => $openresty::source_dir,
       recurse => true,
-      purge   => $nginx::bool_source_dir_purge,
-      force   => $nginx::bool_source_dir_purge,
-      replace => $nginx::manage_file_replace,
-      audit   => $nginx::manage_audit,
+      purge   => $openresty::bool_source_dir_purge,
+      force   => $openresty::bool_source_dir_purge,
+      replace => $openresty::manage_file_replace,
+      audit   => $openresty::manage_audit,
     }
   }
 
 
   ### Include custom class if $my_class is set
-  if $nginx::my_class {
-    include $nginx::my_class
+  if $openresty::my_class {
+    include $openresty::my_class
   }
 
 
   ### Provide puppi data, if enabled ( puppi => true )
-  if $nginx::bool_puppi == true {
+  if $openresty::bool_puppi == true {
     $classvars=get_class_args()
-    puppi::ze { 'nginx':
-      ensure    => $nginx::manage_file,
+    puppi::ze { 'openresty':
+      ensure    => $openresty::manage_file,
       variables => $classvars,
-      helper    => $nginx::puppi_helper,
+      helper    => $openresty::puppi_helper,
     }
   }
 
 
   ### Service monitoring, if enabled ( monitor => true )
-  if $nginx::bool_monitor == true {
-    monitor::port { "nginx_${nginx::protocol}_${nginx::port}":
-      protocol => $nginx::protocol,
-      port     => $nginx::port,
-      target   => $nginx::monitor_target,
-      tool     => $nginx::monitor_tool,
-      enable   => $nginx::manage_monitor,
+  if $openresty::bool_monitor == true {
+    monitor::port { "openresty_${openresty::protocol}_${openresty::port}":
+      protocol => $openresty::protocol,
+      port     => $openresty::port,
+      target   => $openresty::monitor_target,
+      tool     => $openresty::monitor_tool,
+      enable   => $openresty::manage_monitor,
     }
-    monitor::process { 'nginx_process':
-      process  => $nginx::process,
-      service  => $nginx::service,
-      pidfile  => $nginx::pid_file,
-      user     => $nginx::process_user,
-      argument => $nginx::process_args,
-      tool     => $nginx::monitor_tool,
-      enable   => $nginx::manage_monitor,
+    monitor::process { 'openresty_process':
+      process  => $openresty::process,
+      service  => $openresty::service,
+      pidfile  => $openresty::pid_file,
+      user     => $openresty::process_user,
+      argument => $openresty::process_args,
+      tool     => $openresty::monitor_tool,
+      enable   => $openresty::manage_monitor,
     }
   }
 
 
   ### Firewall management, if enabled ( firewall => true )
-  if $nginx::bool_firewall == true {
-    firewall { "nginx_${nginx::protocol}_${nginx::port}":
-      source      => $nginx::firewall_src,
-      destination => $nginx::firewall_dst,
-      protocol    => $nginx::protocol,
-      port        => $nginx::port,
+  if $openresty::bool_firewall == true {
+    firewall { "openresty_${openresty::protocol}_${openresty::port}":
+      source      => $openresty::firewall_src,
+      destination => $openresty::firewall_dst,
+      protocol    => $openresty::protocol,
+      port        => $openresty::port,
       action      => 'allow',
       direction   => 'input',
-      tool        => $nginx::firewall_tool,
-      enable      => $nginx::manage_firewall,
+      tool        => $openresty::firewall_tool,
+      enable      => $openresty::manage_firewall,
     }
   }
 
 
   ### Debugging, if enabled ( debug => true )
-  if $nginx::bool_debug == true {
-    file { 'debug_nginx':
-      ensure  => $nginx::manage_file,
-      path    => "${settings::vardir}/debug-nginx",
+  if $openresty::bool_debug == true {
+    file { 'debug_openresty':
+      ensure  => $openresty::manage_file,
+      path    => "${settings::vardir}/debug-openresty",
       mode    => '0640',
       owner   => 'root',
       group   => 'root',

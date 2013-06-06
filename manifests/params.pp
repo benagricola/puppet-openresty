@@ -1,18 +1,18 @@
-# Class: nginx::params
+# Class: openresty::params
 #
-# This class defines default parameters used by the main module class nginx
+# This class defines default parameters used by the main module class openresty
 # Operating Systems differences in names and paths are addressed here
 #
 # == Variables
 #
-# Refer to nginx class for the variables defined here.
+# Refer to openresty class for the variables defined here.
 #
 # == Usage
 #
 # This class is not intended to be used directly.
 # It may be imported or inherited by other classes
 #
-class nginx::params {
+class openresty::params {
 
   $gzip = 'on'
   $worker_connections = 1024
@@ -22,11 +22,11 @@ class nginx::params {
   ### Application related parameters
 
   $package = $::operatingsystem ? {
-    default => 'nginx',
+    default => 'openresty',
   }
 
   $service = $::operatingsystem ? {
-    default => 'nginx',
+    default => 'openresty',
   }
 
   $service_status = $::operatingsystem ? {
@@ -34,7 +34,7 @@ class nginx::params {
   }
 
   $process = $::operatingsystem ? {
-    default => 'nginx',
+    default => 'openresty',
   }
 
   $process_args = $::operatingsystem ? {
@@ -43,15 +43,15 @@ class nginx::params {
 
   $process_user = $::operatingsystem ? {
     /(?i:Debian|Ubuntu|Mint)/ => 'www-data',
-    default => 'nginx',
+    default => 'openresty',
   }
 
   $config_dir = $::operatingsystem ? {
-    default => '/etc/nginx',
+    default => '/etc/openresty',
   }
 
   $config_file = $::operatingsystem ? {
-    default => '/etc/nginx/nginx.conf',
+    default => '/etc/openresty/openresty.conf',
   }
 
   $config_file_mode = $::operatingsystem ? {
@@ -67,24 +67,24 @@ class nginx::params {
   }
 
   $config_file_init = $::operatingsystem ? {
-    /(?i:Debian|Ubuntu|Mint)/ => '/etc/default/nginx',
-    default                   => '/etc/sysconfig/nginx',
+    /(?i:Debian|Ubuntu|Mint)/ => '/etc/default/openresty',
+    default                   => '/etc/sysconfig/openresty',
   }
 
   $pid_file = $::operatingsystem ? {
-    default => '/var/run/nginx.pid',
+    default => '/var/run/openresty.pid',
   }
 
   $data_dir = $::operatingsystem ? {
-    default => '/usr/share/nginx/html',
+    default => '/usr/share/openresty/html',
   }
 
   $log_dir = $::operatingsystem ? {
-    default => '/var/log/nginx',
+    default => '/var/log/openresty',
   }
 
   $log_file = $::operatingsystem ? {
-    default => [ '/var/log/nginx/access.log' , '/var/log/nginx/error.log' ]
+    default => [ '/var/log/openresty/access.log' , '/var/log/openresty/error.log' ]
   }
 
   $port = '80'
