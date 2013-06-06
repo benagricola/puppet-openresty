@@ -1,15 +1,11 @@
 # Puppet module: openresty
 
-This is a Puppet openresty module from the second generation of Example42 Puppet Modules.
+This is a Puppet openresty module forked from the second generation of Example42 Puppet Modules.
 
-Made by Alessandro Franceschi / Lab42
+Originally Made by Alessandro Franceschi / Lab42, Developed by Ben Agricola
 
-The openresty::resource:: classes and relevant code has been derived from https://github.com/zertico/puppetlabs-openresty.git
-which is a fort of James Fryman /PuppetLabs original openresty module
-
-Official site: http://www.example42.com
-
-Official git repository: http://github.com/example42/puppet-openresty
+The openresty::resource:: classes and relevant code has been derived from https://github.com/zertico/puppetlabs-nginx.git
+which is a fork of James Fryman /PuppetLabs original nginx module
 
 Released under the terms of Apache 2 License.
 
